@@ -37,7 +37,7 @@ from gemini_analyzer import analyze_screenshot
 from config import (
     OVERLAY_BG_COLOR, OVERLAY_FG_COLOR, OVERLAY_ACCENT_COLOR,
     OVERLAY_TITLE_COLOR, OVERLAY_WIDTH, OVERLAY_MAX_HEIGHT,
-    OVERLAY_FONT_FAMILY, OVERLAY_FONT_SIZE, OVERLAY_OPACITY,
+    OVERLAY_FONT_FAMILY, OVERLAY_FONT_SIZE, OVERLAY_OPACITY, T,
 )
 
 # 状态
@@ -61,7 +61,7 @@ class App:
         btn_frame.pack(fill=tk.X)
 
         self.btn_analyze = tk.Button(
-            btn_frame, text="⚔️ 分析", command=self._on_analyze,
+            btn_frame, text=T("btn_analyze"), command=self._on_analyze,
             bg="#1a1a2e", fg="#ffd700", activebackground="#2a2a4e",
             activeforeground="#ffffff", font=("Microsoft YaHei UI", 11, "bold"),
             padx=8, pady=4, cursor="hand2", relief=tk.FLAT, borderwidth=0,
@@ -73,7 +73,7 @@ class App:
         sep.pack(side=tk.LEFT)
 
         self.btn_show = tk.Button(
-            btn_frame, text="📋 攻略", command=self._on_show,
+            btn_frame, text=T("btn_guide"), command=self._on_show,
             bg="#1a1a2e", fg="#00d4ff", activebackground="#2a2a4e",
             activeforeground="#ffffff", font=("Microsoft YaHei UI", 11, "bold"),
             padx=8, pady=4, cursor="hand2", relief=tk.FLAT, borderwidth=0,
@@ -81,7 +81,7 @@ class App:
         self.btn_show.pack(side=tk.LEFT, padx=(1, 2))
 
         self.status_label = tk.Label(
-            self.root, text="就绪 | 右键拖拽移动",
+            self.root, text=T("status_ready"),
             bg="#1a1a2e", fg="#666680", font=("Microsoft YaHei UI", 8),
         )
         self.status_label.pack()
@@ -113,8 +113,8 @@ class App:
             return
         _is_analyzing = True
 
-        self.btn_analyze.configure(text="⏳ ...", state=tk.DISABLED)
-        self.status_label.configure(text="正在截图和分析...")
+        self.btn_analyze.configure(text=T("btn_analyzing"), state=tk.DISABLED)
+        self.status_label.configure(text=T("status_analyzing"))
         self.root.update()
 
         # 隐藏按钮和攻略，避免截图中出现
@@ -152,15 +152,15 @@ class App:
         except Exception as e:
             log.error(f"分析出错: {e}")
             log.error(traceback.format_exc())
-            self.root.after(0, lambda: self._show_result(f"❌ 分析出错\n\n{str(e)}"))
+            self.root.after(0, lambda: self._show_result(f"{T('analysis_error')}\n\n{str(e)}"))
         finally:
             _is_analyzing = False
             self.root.after(0, self._restore_btn)
 
     def _restore_btn(self):
         self.root.deiconify()
-        self.btn_analyze.configure(text="⚔️ 分析", state=tk.NORMAL)
-        self.status_label.configure(text="✅ 完成 | 点📋查看攻略")
+        self.btn_analyze.configure(text=T("btn_analyze"), state=tk.NORMAL)
+        self.status_label.configure(text=T("status_done"))
 
     # ==================== 显示攻略 ====================
     def _show_result(self, content: str):
@@ -205,7 +205,7 @@ class App:
         title_frame.bind("<B1-Motion>", on_drag)
 
         title_label = tk.Label(
-            title_frame, text="⚔️ ARAM 助手 - 阵容分析",
+            title_frame, text=T("overlay_title"),
             bg="#0d0d1a", fg=OVERLAY_TITLE_COLOR,
             font=(OVERLAY_FONT_FAMILY, OVERLAY_FONT_SIZE + 2, "bold"),
             padx=12, pady=8,
@@ -226,7 +226,7 @@ class App:
         close_btn.bind("<Leave>", lambda e: close_btn.configure(bg="#0d0d1a"))
 
         hint = tk.Label(
-            title_frame, text="Esc 隐藏 | 可拖拽",
+            title_frame, text=T("overlay_hint"),
             bg="#0d0d1a", fg="#666680",
             font=(OVERLAY_FONT_FAMILY, OVERLAY_FONT_SIZE - 2),
         )
@@ -277,7 +277,7 @@ class App:
         bottom = tk.Frame(self.overlay, bg="#0d0d1a")
         bottom.pack(fill=tk.X)
         tk.Label(
-            bottom, text="点击按钮重新分析 | Gemini ✨",
+            bottom, text=T("overlay_footer"),
             bg="#0d0d1a", fg="#444460",
             font=(OVERLAY_FONT_FAMILY, OVERLAY_FONT_SIZE - 2), pady=4,
         ).pack()
@@ -438,26 +438,26 @@ class App:
 
 def main():
     print("=" * 50)
-    print("⚔️  ARAM 海克斯大乱斗 智能助手")
+    print(T("console_title"))
     print("=" * 50)
 
-    print(f"\n📌 屏幕左上角 [⚔️ 分析 | 📋 攻略] 按钮")
-    print("   ⚔️ 分析 → 截图 + AI 分析（自动识别你的英雄）")
-    print("   📋 攻略 → 重新打开/隐藏攻略")
-    print("   右键拖拽移动按钮位置")
-    print("\n⌨️  全局热键: Ctrl+F12 → 切换显示/隐藏攻略（游戏中也可用）")
-    print("\n🔄 无需重启！每局开始时点“⚔️ 分析”即可重新分析")
-    print("   AI 会通过加载界面中金色名字自动识别你的英雄")
-    print(f"📝 日志: {LOG_FILE}")
-    print("❤️  关闭命令行窗口退出")
+    print(f"\n{T('console_btn_hint')}")
+    print(T("console_analyze_hint"))
+    print(T("console_guide_hint"))
+    print(T("console_drag_hint"))
+    print(f"\n{T('console_hotkey_hint')}")
+    print(f"\n{T('console_restart_hint')}")
+    print(T("console_hero_hint"))
+    print(T("console_log").format(LOG_FILE))
+    print(T("console_exit"))
     print("=" * 50 + "\n")
 
-    log.info("ARAM 助手已启动")
+    log.info(T("console_started"))
     app = App()
     try:
         app.run()
     except KeyboardInterrupt:
-        print("\n👋 已退出")
+        print(f"\n{T('console_bye')}")
         sys.exit(0)
 
 

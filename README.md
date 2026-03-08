@@ -47,18 +47,30 @@ python main.py
 3. 等待 15-30 秒，AI 分析完成后自动弹出攻略窗口
 4. 按 **Ctrl+F12** 可随时切换攻略窗口的显示/隐藏
 
-## 📁 文件说明
+## 🌐 Language / 语言切换
 
-| 文件 | 说明 |
-|------|------|
-| `main.py` | 主入口，浮动按钮和攻略窗口 |
-| `config.py` | 配置文件（API Key、显示模式、UI 参数） |
-| `screenshot.py` | 截图模块 |
-| `gemini_analyzer.py` | Gemini API 调用模块 |
-| `overlay_ui.py` | 独立版悬浮窗 UI（备用） |
-| `launch.bat` | Windows 启动脚本 |
+Edit `config.py` to switch language:
 
-## 🔧 要求
+```python
+LANGUAGE = "zh"   # 中文 (Chinese) - default
+LANGUAGE = "en"   # English
+```
+
+This changes the UI text, console messages, and AI analysis language.
+
+## 📁 文件说明 / File Structure
+
+| File | Description |
+|------|-------------|
+| `main.py` | Main entry, floating button & overlay |
+| `config.py` | Config (API Key, language, UI) |
+| `lang.py` | i18n strings & prompts (zh/en) |
+| `screenshot.py` | Screenshot module |
+| `gemini_analyzer.py` | Gemini API module |
+| `overlay_ui.py` | Standalone overlay UI (backup) |
+| `launch.bat` | Windows launch script |
+
+## 🔧 要求 / Requirements
 
 - **操作系统**: Windows 10/11
 - **Python**: 3.10+

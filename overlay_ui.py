@@ -16,6 +16,7 @@ from config import (
     OVERLAY_FONT_SIZE,
     OVERLAY_OPACITY,
     TOGGLE_HOTKEY,
+    T,
 )
 
 
@@ -79,7 +80,7 @@ class OverlayWindow:
 
         # 提示
         hint_label = tk.Label(
-            title_frame, text=f"Esc 隐藏 | 可拖拽",
+            title_frame, text=T("overlay_hint"),
             bg="#0d0d1a", fg="#666680",
             font=(OVERLAY_FONT_FAMILY, OVERLAY_FONT_SIZE - 2),
         )
@@ -139,7 +140,7 @@ class OverlayWindow:
 
         status_label = tk.Label(
             bottom_frame,
-            text=f"点击按钮重新分析 | Gemini ✨",
+            text=T("overlay_footer"),
             bg="#0d0d1a", fg="#444460",
             font=(OVERLAY_FONT_FAMILY, OVERLAY_FONT_SIZE - 2), pady=4,
         )
@@ -185,8 +186,10 @@ class OverlayWindow:
         self._visible = False
         self._ready_event.clear()
 
-    def show(self, content: str, title: str = "⚔️ ARAM 助手 - 阵容分析"):
-        """显示悬浮窗。如果已有窗口则销毁重建。"""
+    def show(self, content: str, title: str = None):
+        """Show overlay. If window exists, destroy and rebuild."""
+        if title is None:
+            title = T("overlay_title")
         self._content = content
         self._title = title
 
@@ -300,8 +303,10 @@ class OverlayWindow:
 _overlay = OverlayWindow()
 
 
-def show_overlay(content: str, title: str = "⚔️ ARAM 助手 - 阵容分析"):
-    """对外接口：显示悬浮窗。"""
+def show_overlay(content: str, title: str = None):
+    """Public API: show overlay."""
+    if title is None:
+        title = T("overlay_title")
     _overlay.show(content, title)
 
 
