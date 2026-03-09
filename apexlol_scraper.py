@@ -2,6 +2,11 @@
 """ARAM 助手 - ApexLol.info 数据爬取模块
 
 从 https://apexlol.info 爬取英雄海克斯联动分析数据。
+
+⚠️ 数据来源声明：
+- 本模块爬取的数据版权归 ApexLol.info 及其数据提供者所有
+- 仅在用户主动触发时爬取，控制请求频率，尽量减少对源站的影响
+- 本项目与 ApexLol.info 无官方合作关系
 """
 
 import os

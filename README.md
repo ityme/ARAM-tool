@@ -69,8 +69,9 @@ LANGUAGE = "en"   # English
 | `config.py` | 配置文件（API Key、语言、UI） |
 | `lang.py` | 多语言字符串和 Prompt（中/英） |
 | `screenshot.py` | 截图模块 |
-| `gemini_analyzer.py` | Gemini API 调用模块 |
-| `overlay_ui.py` | 独立攻略窗口 UI（备用） |
+| `gemini_analyzer.py` | Gemini API 调用模块（含 SSL 自动重试） |
+| `apexlol_scraper.py` | ApexLol.info 数据爬取模块 |
+| `apexlol_data.py` | 数据缓存管理与查询 |
 | `launch.bat` | Windows 启动脚本 |
 
 ## 🔧 要求
@@ -86,6 +87,22 @@ LANGUAGE = "en"   # English
 - 每次分析耗时约 15-30 秒，取决于网络和 API 响应速度
 - 浮动按钮可以右键拖拽移动位置
 - 攻略窗口按 Esc 隐藏，点 📋 重新显示
+
+## 📊 数据来源声明
+
+本工具的海克斯符文推荐数据来源于 **[ApexLol.info](https://apexlol.info)**。
+
+- 数据仅在用户**主动点击 🔄 数据 按钮**时爬取，不会自动抓取
+- 爬取频率受限（每次请求间隔 0.4 秒），尽量减少对源站的负载
+- 数据本地缓存 7 天，避免重复请求
+- 本项目与 ApexLol.info **没有官方合作关系**，所有数据版权归 ApexLol.info 及其数据提供者所有
+- 如果 ApexLol.info 的运营方认为本项目的数据引用方式不当，请通过 GitHub Issues 联系我，我会立即处理
+
+## ⚠️ 免责声明
+
+- 本工具为个人学习项目，仅供参考，不保证分析结果的准确性
+- 本工具与 Riot Games 或 League of Legends 没有任何官方关联
+- 使用本工具时请遵守游戏的使用条款
 
 ## 📄 License
 

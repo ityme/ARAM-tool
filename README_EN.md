@@ -69,8 +69,9 @@ This changes the UI text, console messages, and AI analysis language.
 | `config.py` | Config (API key, language, UI) |
 | `lang.py` | i18n strings & prompts (zh/en) |
 | `screenshot.py` | Screenshot module |
-| `gemini_analyzer.py` | Gemini API module |
-| `overlay_ui.py` | Standalone overlay UI (backup) |
+| `gemini_analyzer.py` | Gemini API module (with SSL auto-retry) |
+| `apexlol_scraper.py` | ApexLol.info data scraper |
+| `apexlol_data.py` | Data cache management & queries |
 | `launch.bat` | Windows launch script |
 
 ## 🔧 Requirements
@@ -86,6 +87,22 @@ This changes the UI text, console messages, and AI analysis language.
 - Each analysis takes ~15-30 seconds depending on network and API response
 - Right-click drag to reposition the floating button
 - Press Esc to hide the guide overlay, click 📋 to show it again
+
+## 📊 Data Source Acknowledgment
+
+Hextech augment recommendation data in this tool is sourced from **[ApexLol.info](https://apexlol.info)**.
+
+- Data is only fetched when the user **manually clicks the 🔄 Data button**, never automatically
+- Request frequency is throttled (0.4s delay between requests) to minimize server load
+- Data is cached locally for 7 days to avoid redundant requests
+- This project has **no official affiliation** with ApexLol.info. All data copyrights belong to ApexLol.info and its data providers
+- If the operators of ApexLol.info have concerns about this project's data usage, please contact us via GitHub Issues and we will address it immediately
+
+## ⚠️ Disclaimer
+
+- This tool is a personal learning project, provided for reference only, with no guarantee of analysis accuracy
+- This tool is not affiliated with or endorsed by Riot Games or League of Legends
+- Please comply with the game's terms of service when using this tool
 
 ## 📄 License
 
